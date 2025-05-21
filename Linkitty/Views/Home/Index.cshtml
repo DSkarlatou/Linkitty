@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+
+<section class="features" id="features">
+    <div class="container">
+            <!-- Cat image floating above form -->
+        <div class="cat-section">
+            <img src="~/img/cat_stare_no_background.png" alt="Cat staring" class="cat-image">
+        </div>
+
+        <div class="url-shorten-feature">
+            <form class="url-shorten-form" id="url-shorten-form"
+                  asp-controller="Home"
+                  asp-action="ShortenUrl">
+                <div>
+                    <input type="text" name="url"
+                           class="url-input" 
+                           placeholder="shorten link here..."
+                           autocomplete="off">
+                    <span class="alert"></span>
+                </div>
+                <button type="submit" class="btn btn-lg">SHORTEN IT</button>
+            </form>
+
+            <div class="url-shorten-results">
+                @if (ViewBag.ShortUrl != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        Your shortened link: 
+                        <a href="@ViewBag.ShortUrl" target="_blank">@ViewBag.ShortUrl</a>
+                    </div>
+                }
+                else if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger mt-3">
+                                @ViewBag.Error
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

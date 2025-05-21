@@ -1,0 +1,42 @@
+﻿@model List<Linkitty.Models.UrlMapping>
+
+@{
+    ViewData["Title"] = "All Shortened Links";
+}
+
+<h2>All Shortened Links</h2>
+<p>Model count: @Model?.Count</p>
+
+@if (Model != null && Model.Any())
+{
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Original Url</th>
+                    <th scope="col">Short Url</th>
+                    <th scope="col">Click Count</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var url = Model[i];
+                    <tr>
+                        <th scope="row">@(i + 1)</th>
+                        <td>@url.OriginalUrl</td>
+                        <td>
+                            <a href="@($"{Context.Request.Scheme}://{Context.Request.Host}/{url.ShortUrl}")" target="_blank">
+                            @($"{Context.Request.Scheme}://{Context.Request.Host}/{url.ShortUrl}")
+                            </a>
+                        </td>
+                        <td>@url.ClickCount</td>
+                    </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>No links found in memory.</p>
+}

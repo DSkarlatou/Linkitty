@@ -1,0 +1,179 @@
+html {
+    font-size: 14px;
+}
+
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+* {
+    .flex-between
+
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.flex-ver-top {
+    align-items: flex-start;
+}
+
+.scale-effect:active {
+    transform: scale(0.88);
+    transition: 0.2s;
+}
+
+
+.container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.cat-section {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    transform: translateX(-50%);
+    transform:translateY(-25%)
+}
+
+.cat-image {
+    width: 350px;
+    height: auto;
+    margin-bottom: -20px;
+}
+
+html, body {
+    /*overflow-y: hidden;*/
+    background-color: white;
+}
+
+.landing {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    padding: 5px 0;
+    margin-left: 0%;
+    overflow-x: hidden;
+}
+
+    .landing .landing-text {
+        flex: 1;
+        min-width: 65px;
+    }
+
+        .landing .landing-text h1 {
+            width: 100%;
+            font-size: 2.9em;
+            line-height: 1.15;
+        }
+
+
+        .landing .landing-text p {
+            font-size: 18px;
+            max-width: 500px;
+            margin: 0 0 29.41176px;
+        }
+
+.features {
+    margin-top: 100px;
+}
+
+.url-shorten-results {
+    margin-top: 380px;
+}
+
+
+.url-shorten-form {
+    width: 100%;
+    display: flex;
+    gap: 20px; /*the gap between the fill in box and the button*/
+    flex-wrap: wrap;
+    background: #c6dbe5 no-repeat right top; /*HERE*/
+    background-size: cover;
+    padding: 45px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transform: translateY(250%); /*HERE ENTIRE FORM BOX MOVES UP AND DOWN*/
+    transition: gap 0.3s;
+    border: 2px solid #004a55; /* Added border */
+}
+
+    .url-shorten-form > div {
+        position: relative;
+        flex: 1;
+    }
+
+    .url-shorten-form .url-input {
+        width: 100%;
+        font-family: "Poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana;
+        font-size: 18px;
+        padding: 8px 20px;
+        background: white;
+        border: 2px solid transparent;
+        border-radius: 6px;
+        outline: none;
+        transition: 0.2s;
+    }
+
+        .url-shorten-form .url-input::placeholder {
+            font-family: "Poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana;
+            font-size: 16px;
+            font-weight: 500;
+            color: #9e9aa7;
+        }
+
+    .url-shorten-form .alert {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 4px);
+        font-style: italic;
+        font-size: 16px;
+        color: #fe735c;
+        opacity: 0;
+        transition: 0.2s opacity;
+    }
+
+
+    .url-shorten-form .btn {
+        text-align: center;
+        border-radius: inherit;
+        white-space: nowrap;
+        font-size: 16px;
+        color: white;
+        background-color: #004a55; /*button color*/
+        cursor: pointer;
+    }
+
+header > nav {
+    background-color: #c6dbe5 !important;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #c6dbe5 !important;
+}
+
+.btn-login:hover, .nav-item:hover {
+    color: white;
+    background-color: #c6dbe5 !important;
+    cursor: pointer;
+}
+
+div.form-group > label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+    div.form-group > label > span {
+        color: #c6dbe5;
+    }
+
+hr {
+    border-top: 1px solid #c6dbe5;
+}
