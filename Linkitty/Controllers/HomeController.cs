@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Text;
+using System.Xml.Serialization;
 using Linkitty.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Linkitty.Controllers
 {
@@ -71,6 +73,29 @@ namespace Linkitty.Controllers
             _context.SaveChanges();
 
             return Redirect(mapping.OriginalUrl);
+        }
+
+        public IActionResult DeleteAll()
+        {
+            Console.WriteLine("DeleteAll Action");
+            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE UrlMappings");
+            _context.SaveChanges();
+            var allLinks = _context.UrlMappings.ToList();
+            return View("AllLinks", allLinks);
+        }
+
+        public IActionResult DeleteEntry(int id)
+        {
+            Console.WriteLine("DeleteEntry Action");
+
+            var entry = _context.UrlMappings.Find(id);
+            if (entry != null) 
+            {
+                _context.UrlMappings.Remove(entry);
+                _context.SaveChanges();
+            }
+            var allLinks = _context.UrlMappings.ToList();
+            return View("AllLinks", allLinks);
         }
 
         private bool IsValidUrl(string url)

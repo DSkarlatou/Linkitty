@@ -5,8 +5,9 @@ namespace Linkitty.Models
     public class UrlMapping
     {
         public int Id { get; set; }
-        public string OriginalUrl { get; set; }
-        public string ShortUrl { get; set; }
+        public string OriginalUrl { get; set; } = string.Empty;
+        public string ShortUrl { get; set; } = string.Empty;
+
         public int ClickCount { get; set; }
 
         public static string GenerateShortCode(int length)

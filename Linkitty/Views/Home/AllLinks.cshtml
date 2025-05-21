@@ -4,8 +4,12 @@
     ViewData["Title"] = "All Shortened Links";
 }
 
-<h2>All Shortened Links</h2>
-<p>Model count: @Model?.Count</p>
+<div class="table-header">
+    <h2>All Shortened Links</h2>
+    <form asp-action="DeleteAll" method="post">
+        <button type="submit" class="delete_btn">DELETE ALL</button>
+    </form>
+</div>
 
 @if (Model != null && Model.Any())
 {
@@ -16,6 +20,7 @@
                     <th scope="col">Original Url</th>
                     <th scope="col">Short Url</th>
                     <th scope="col">Click Count</th>
+                    <th scope="col"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +36,14 @@
                             </a>
                         </td>
                         <td>@url.ClickCount</td>
+                        <th scope="col">
+                                <form asp-action="DeleteEntry" method="post">
+                                    <input type="hidden" name="id" value="@url.Id"/>
+                                    <button
+                                        type="submit" class="delete_btn">DELETE
+                                    </button>
+                                </form>
+                        </th>
                     </tr>
             }
             </tbody>

@@ -1,15 +1,23 @@
 using Linkitty.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// IN MEMORY EF 
+//builder.Services.AddDbContext<UrlDbContext>(options =>
+//    options.UseInMemoryDatabase("LinkittyDb"),
+//    ServiceLifetime.Singleton);
 builder.Services.AddDbContext<UrlDbContext>(options =>
-    options.UseInMemoryDatabase("LinkittyDb"),
-    ServiceLifetime.Singleton);
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 3)) // use your MySQL version
+    ));
 
 
 var app = builder.Build();

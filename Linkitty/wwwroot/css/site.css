@@ -151,6 +151,39 @@ html, body {
         cursor: pointer;
     }
 
+
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.delete_btn {
+    background-color: #ff9a94;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+    .delete_btn:hover {
+        color: white;
+        background-color: #c95e57 !important;
+        cursor: pointer;
+    }
+
+.table td:nth-child(4), /* Click Count column */
+.table th:nth-child(4) {
+    text-align: center;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
 header > nav {
     background-color: #c6dbe5 !important;
 }
@@ -159,9 +192,9 @@ header > nav {
     border-bottom: 1px solid #c6dbe5 !important;
 }
 
-.btn-login:hover, .nav-item:hover {
+.nav-item:hover {
     color: white;
-    background-color: #c6dbe5 !important;
+    background-color: #c95e57 !important;
     cursor: pointer;
 }
 

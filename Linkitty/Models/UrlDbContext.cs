@@ -8,8 +8,7 @@ namespace Linkitty.Models
         public DbSet<UrlMapping> UrlMappings { get; set; }
 
         public UrlDbContext(DbContextOptions<UrlDbContext> options)
-            : base(options)
-        {}
+            : base(options) {}
 
 
 
