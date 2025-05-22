@@ -7,9 +7,6 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
-
 * {
     .flex-between
 
@@ -29,17 +26,22 @@ html {
     transition: 0.2s;
 }
 
-
 .container {
     position: relative;
     width: 100%;
     margin: 0 auto;
 }
 
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between GitHub link and GIF */
+}
+
 .cat-section {
     position: absolute;
     top: 0;
-    left: 25%;
+    left: 30%;
     transform: translateX(-50%);
     transform:translateY(-25%)
 }
@@ -50,10 +52,22 @@ html {
     margin-bottom: -20px;
 }
 
-html, body {
-    /*overflow-y: hidden;*/
-    background-color: white;
+.cat-dance {
+    display: block; /* Ensures it takes its own space */
+    margin: 0 auto 10px; /* Centers the GIF and adds space below */
+    width: 300px; /* Adjust size */
+    height: auto;
 }
+
+/*html, body {
+
+    background-image: url("/img/nature_backdrop.png");*/ /* Replace with your actual image path */
+    /*background-size: cover;*/ /* Ensures it covers the entire background */
+    /*background-position: center;*/ /* Centers the image */
+    /*background-repeat: no-repeat;*/ /* Prevents tiling */
+/*}*/
+
+
 
 .landing {
     display: flex;
@@ -89,20 +103,19 @@ html, body {
     margin-top: 380px;
 }
 
-
 .url-shorten-form {
     width: 100%;
-    display: flex;
     gap: 20px; /*the gap between the fill in box and the button*/
     flex-wrap: wrap;
-    background: #c6dbe5 no-repeat right top; /*HERE*/
+    background: #c6dbe5 no-repeat right top; /*color box*/
     background-size: cover;
-    padding: 45px;
+    padding: 25px;
     border-radius: 6px;
-    margin-bottom: 20px;
-    transform: translateY(250%); /*HERE ENTIRE FORM BOX MOVES UP AND DOWN*/
+    margin-bottom: 15px;
     transition: gap 0.3s;
-    border: 2px solid #004a55; /* Added border */
+    flex-direction: column; /* Stack children vertically */
+    transform: translateY(350%);
+    /*border: 2px solid #004a55;*/ /* Added border */
 }
 
     .url-shorten-form > div {
@@ -114,12 +127,13 @@ html, body {
         width: 100%;
         font-family: "Poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana;
         font-size: 18px;
-        padding: 8px 20px;
+        padding: 8px 10px;
         background: white;
         border: 2px solid transparent;
         border-radius: 6px;
         outline: none;
         transition: 0.2s;
+
     }
 
         .url-shorten-form .url-input::placeholder {
@@ -140,7 +154,6 @@ html, body {
         transition: 0.2s opacity;
     }
 
-
     .url-shorten-form .btn {
         text-align: center;
         border-radius: inherit;
@@ -151,7 +164,16 @@ html, body {
         cursor: pointer;
     }
 
-
+.input-row {
+    display: flex;
+    gap: 20px; /* space between input and button */
+    margin-bottom: 5px;
+}
+    .input-row .btn {
+        width: 200px;
+        text-align: center;
+        border-radius: 6px;
+    }
 
 .table-header {
     display: flex;
@@ -210,3 +232,6 @@ div.form-group > label {
 hr {
     border-top: 1px solid #c6dbe5;
 }
+
+
+

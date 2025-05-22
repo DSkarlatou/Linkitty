@@ -11,18 +11,26 @@
         </div>
 
         <div class="url-shorten-feature">
-            <form class="url-shorten-form" id="url-shorten-form"
-                  asp-controller="Home"
-                  asp-action="ShortenUrl">
-                <div>
-                    <input type="text" name="url"
+
+            <form class="url-shorten-form" asp-action="ShortenUrl" method="post">
+                <div class="input-row">
+                    <input type="text" name="url" 
                            class="url-input" 
-                           placeholder="shorten link here..."
+                           placeholder="Shorten link here..." 
                            autocomplete="off">
-                    <span class="alert"></span>
+                    <button type="submit" class="btn">SHORTEN IT</button>
                 </div>
-                <button type="submit" class="btn btn-lg">SHORTEN IT</button>
             </form>
+            <form class="url-shorten-form" asp-action="FollowLink" method="post">
+                <div class="input-row">
+                    <input type="text" name="url" 
+                           class="url-input" 
+                           placeholder="Enter short code or URL..." 
+                           autocomplete="off">
+                    <button type="submit" class="btn">FOLLOW LINK </button>
+                </div>
+            </form>
+
 
             <div class="url-shorten-results">
                 @if (ViewBag.ShortUrl != null)
@@ -35,7 +43,7 @@
                 else if (ViewBag.Error != null)
                 {
                     <div class="alert alert-danger mt-3">
-                                @ViewBag.Error
+                        @ViewBag.Error
                     </div>
                 }
             </div>

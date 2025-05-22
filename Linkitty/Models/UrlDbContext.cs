@@ -9,9 +9,5 @@ namespace Linkitty.Models
 
         public UrlDbContext(DbContextOptions<UrlDbContext> options)
             : base(options) {}
-
-
-
-
     }
 }

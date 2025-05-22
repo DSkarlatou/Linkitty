@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Linkitty.Models
 {
@@ -22,7 +23,6 @@ namespace Linkitty.Models
 
             return result.ToString();
         }
-
 
     }
 }
