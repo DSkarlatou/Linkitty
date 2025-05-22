@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Net;
+using System.Text;
 
 
 namespace Linkitty.Controllers
@@ -33,19 +34,21 @@ namespace Linkitty.Controllers
         [HttpPost]
         public IActionResult ShortenUrl(string url) 
         {
-            /*CHECK IF LINK IS A REAL LINK*/
+            string domain = $"{Request.Scheme}://{Request.Host}";
+            
+
+            /*check if link is real link*/
             if (!UrlMapping.IsValidUrl(url))
             {
                 TempData["Error"] = $"Invalid URL: {url}. Please enter a valid link (e.g., https://example.com).";
                 return RedirectToAction("Index");
             }
 
-            //ensure the short code is unique
+            /*ensure the short code is unique*/
             string shortCode;
-            do { 
+            do {
                 shortCode = UrlMapping.GenerateShortCode(6);
-            } while (_context.UrlMappings
-                     .Any(u => u.ShortUrl == shortCode));
+            } while (_context.UrlMappings.Any(u => u.ShortUrl == shortCode));
 
             var mapping = new UrlMapping
             {
@@ -53,11 +56,11 @@ namespace Linkitty.Controllers
                 ShortUrl = shortCode,
                 ClickCount = 0
             };
-
             _context.UrlMappings.Add(mapping);
             _context.SaveChanges();
 
             TempData["ShortUrl"] = $"{Request.Scheme}://{Request.Host}/{shortCode}";
+            
             return RedirectToAction("Index");
 
         }
@@ -66,8 +69,8 @@ namespace Linkitty.Controllers
         public IActionResult FollowLink(string url)
         {
             string shortcode;
-
-            if (UrlMapping.IsShortenedUrl(url))
+            string domain = $"{Request.Scheme}://{Request.Host}";
+            if (UrlMapping.IsShortenedUrl(url, domain))
                 shortcode = url.Substring(url.LastIndexOf('/') + 1);
             else
                 shortcode = url;
@@ -100,70 +103,10 @@ namespace Linkitty.Controllers
             return Redirect(mapping.OriginalUrl);
         }
 
+        [Route("CustomLink")]
         public IActionResult CustomLink()
         {
             return View("CustomLink");
         }
-
-        [HttpPost("CustomLink")]
-        public IActionResult ShortenCustomLink(string url, string shortCode)
-        {
-            Console.WriteLine("ShortenCustomLink ACTION: " + url + " " + shortCode);
-
-            /* check url validity */
-            if (!UrlMapping.IsValidUrl(url))
-            {
-                TempData["Error"] = $"Invalid URL: {url}. Please enter a valid link (e.g., https://example.com).";
-                return RedirectToAction("CustomLink");
-            }
-
-            /*check if short code already exists*/
-            if (_context.UrlMappings.Any(u => u.ShortUrl == shortCode))
-            {
-                Console.WriteLine($"{shortCode} already exists");
-                TempData["Error"] = $"This code: {shortCode} already exists in our database, please select another";
-                return RedirectToAction("CustomLink");
-
-            }
-
-            var mapping = new UrlMapping
-            {
-                OriginalUrl = url,
-                ShortUrl = shortCode,
-                ClickCount = 0
-            };
-
-            _context.UrlMappings.Add(mapping);
-            _context.SaveChanges();
-
-            TempData["ShortUrl"] = $"{Request.Scheme}://{Request.Host}/{shortCode}";
-            return RedirectToAction("CustomLink");
-
-        }
-
-        public IActionResult DeleteAll()
-        {
-            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE UrlMappings");
-            _context.SaveChanges();
-            var allLinks = _context.UrlMappings.ToList();
-            return View("AllLinks", allLinks);
-        }
-
-        public IActionResult DeleteEntry(int id)
-        {
-
-            var entry = _context.UrlMappings.Find(id);
-            if (entry != null)
-            {
-                _context.UrlMappings.Remove(entry);
-                _context.SaveChanges();
-            }
-            var allLinks = _context.UrlMappings.ToList();
-            return View("AllLinks", allLinks);
-        }
-
-
-
-
     }
 }

@@ -6,7 +6,7 @@
 
 <div class="table-header">
     <h2>All Shortened Links</h2>
-    <form asp-action="DeleteAll" method="post">
+    <form asp-controller="AllLinks" asp-action="DeleteAll" method="post">
         <button type="submit" class="delete_btn">DELETE ALL</button>
     </form>
 </div>
@@ -17,7 +17,7 @@
     <div class="table-container">
         <table class="table table-sm">
             <thead>
-                <tr>
+                <tr class="fieldNames">
                     <th scope="col">#</th>
                     <th scope="col">Original Url</th>
                     <th scope="col">Short Url</th>
@@ -43,12 +43,10 @@
                         </td>
                         <td>@url.ClickCount</td>
                         <th scope="col">
-                                <form asp-action="DeleteEntry" method="post">
-                                    <input type="hidden" name="id" value="@url.Id"/>
-                                    <button
-                                        type="submit" class="delete_btn">DELETE
-                                    </button>
-                                </form>
+                             <form asp-controller="AllLinks" asp-action="DeleteEntry" method="post">
+                                <input type="hidden" name="id" value="@url.Id"/>
+                                <button type="submit" class="delete_btn">DELETE</button>
+                            </form>
                         </th>
                     </tr>
             }
@@ -58,5 +56,5 @@
 }
 else
 {
-        <p>No links found in memory.</p>
+        <p class="noLinksFound">No links found in memory.</p>
 }

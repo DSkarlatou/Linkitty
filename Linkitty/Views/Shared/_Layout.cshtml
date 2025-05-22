@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Linkitty</title>
+    <link rel="icon" type="image/x-icon" href="~/img/icon.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Linkitty.styles.css" asp-append-version="true" />
@@ -23,10 +24,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AllLinks">All Links</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AllLinks" asp-action="Index">All Links</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CustomLink">Create a Custom Link</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomLink" asp-action="Index">Create a Custom Link</a>
                         </li>
                     </ul>
                 </div>
@@ -39,18 +40,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            
-            <span class mb-3 mb-md-0 text-muted>
-                <a class="text-muted" href="https://github.com/DSkarlatou/">
-                    MY GITHUB
-                </a>
-            </span>
-
-        </div>
-        
+    <footer class="footer-alignment">
+        <a class="footerLink" href="https://github.com/DSkarlatou/">MY GITHUB</a>
     </footer>
+
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

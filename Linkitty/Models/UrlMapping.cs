@@ -19,8 +19,7 @@ namespace Linkitty.Models
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < length; i++)
-                result.Append(possibleCharacters[random
-                    .Next(possibleCharacters.Length)]);
+                result.Append(possibleCharacters[random.Next(possibleCharacters.Length)]);
 
             return result.ToString();
         }
@@ -30,10 +29,6 @@ namespace Linkitty.Models
             Console.WriteLine($" checking url validity on {url}");
             if (string.IsNullOrWhiteSpace(url))
                 return false;
-
-            // If no scheme, prepend "http://"
-            if (!url.StartsWith("http://") && !url.StartsWith("https://"))
-                url = "http://" + url;
 
             if (!Uri.TryCreate(url, UriKind.Absolute, out var validatedUri))
                 return false;
@@ -52,21 +47,23 @@ namespace Linkitty.Models
             if (!host.Contains('.') || host.EndsWith("."))
                 return false;
 
-            // Optional: allow IPs
-            if (IPAddress.TryParse(host, out _))
-                return true;
-
             // Regex: basic domain format (e.g., domain.com, sub.domain.co.uk)
             var domainRegex = new Regex(@"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$");
             return domainRegex.IsMatch(host);
         }
 
-        public static bool IsShortenedUrl(string url)
+        public static bool IsShortenedUrl(string url, string domain)
         {
+            //not accepting www.youtube.com/someShortCode
+            if (!url.StartsWith(domain) || url.Count(c => c == '/') != 3)
+                return false;
+
             return Uri.TryCreate(url, UriKind.Absolute, out var validatedUri)
                 && (validatedUri.Scheme == Uri.UriSchemeHttp || validatedUri.Scheme == Uri.UriSchemeHttps)
-                && !string.IsNullOrEmpty(validatedUri.Host); // Ensures there's a valid domain
+                && !string.IsNullOrEmpty(validatedUri.Host);
         }
+
+
 
     }
 }
