@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Custom Link";
+}
+
+
+<section class="features" id="features">
+    <div class="container">
+         <!-- Cat image floating above form -->
+        <div class="cat-section">
+            <img src="~/img/cat_stare_no_background.png" alt="Cat staring" class="cat-image">
+        </div>
+
+        <div class="url-shorten-feature">
+
+            <form class="url-shorten-form" asp-action="ShortenCustomLink" method="post">
+                <div class="input-row">
+                <input type="text" name="url" 
+                       class="url-input" 
+                       placeholder="Enter the original link here..." 
+                       autocomplete="off"
+                       required>
+
+                <input type="text" name="shortCode" 
+                       class="url-input" 
+                       placeholder="Enter your short code here..." 
+                       autocomplete="off"
+                       required>
+
+                    <button type="submit" class="btn">SHORTEN IT</button>
+                </div>
+            </form>
+
+            <div class="url-shorten-results">
+                @if (TempData["ShortUrl"] != null)
+                {
+                <div class="alert alert-success mt-3">
+                    Your shortened link: 
+                    <a href="@TempData["ShortUrl"]" target="_blank">
+                        @TempData["ShortUrl"]
+                    </a>
+                </div>
+                }
+                else if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @TempData["Error"]
+                    </div>
+                }
+        </div>
+
+        </div>
+        </div>
+    </div>
+</section>
+
+
+

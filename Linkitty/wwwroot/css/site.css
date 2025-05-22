@@ -1,16 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url("/img/backdrop.png"); /* adjust the path if needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/* General base styles */
 html {
     font-size: 14px;
 }
-
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-* {
-    .flex-between
-
-{
+/* Fix malformed .flex-between */
+.flex-between {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,54 +34,42 @@ html {
     transition: 0.2s;
 }
 
+/* Layout containers */
 .container {
     position: relative;
     width: 100%;
     margin: 0 auto;
 }
 
+.navbar {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .footer {
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between GitHub link and GIF */
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .cat-section {
     position: absolute;
     top: 0;
-    left: 30%;
-    transform: translateX(-50%);
-    transform:translateY(-25%)
+    left: 50%;
+    transform: translate(-50%, -25%);
 }
 
 .cat-image {
     width: 350px;
     height: auto;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
 }
 
-.cat-dance {
-    display: block; /* Ensures it takes its own space */
-    margin: 0 auto 10px; /* Centers the GIF and adds space below */
-    width: 300px; /* Adjust size */
-    height: auto;
-}
-
-/*html, body {
-
-    background-image: url("/img/nature_backdrop.png");*/ /* Replace with your actual image path */
-    /*background-size: cover;*/ /* Ensures it covers the entire background */
-    /*background-position: center;*/ /* Centers the image */
-    /*background-repeat: no-repeat;*/ /* Prevents tiling */
-/*}*/
-
-
-
+/* Landing section styles */
 .landing {
     display: flex;
-    justify-content: center; /* center horizontally */
+    justify-content: center;
     padding: 5px 0;
-    margin-left: 0%;
     overflow-x: hidden;
 }
 
@@ -87,7 +83,6 @@ html {
             font-size: 2.9em;
             line-height: 1.15;
         }
-
 
         .landing .landing-text p {
             font-size: 18px;
@@ -103,19 +98,20 @@ html {
     margin-top: 380px;
 }
 
+/* Form */
 .url-shorten-form {
     width: 100%;
-    gap: 20px; /*the gap between the fill in box and the button*/
+    gap: 20px;
     flex-wrap: wrap;
-    background: #c6dbe5 no-repeat right top; /*color box*/
     background-size: cover;
     padding: 25px;
     border-radius: 6px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     transition: gap 0.3s;
-    flex-direction: column; /* Stack children vertically */
+    flex-direction: column;
     transform: translateY(350%);
-    /*border: 2px solid #004a55;*/ /* Added border */
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #004a55;
 }
 
     .url-shorten-form > div {
@@ -133,11 +129,10 @@ html {
         border-radius: 6px;
         outline: none;
         transition: 0.2s;
-
     }
 
         .url-shorten-form .url-input::placeholder {
-            font-family: "Poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana;
+            font-family: "Poppins", sans-serif;
             font-size: 16px;
             font-weight: 500;
             color: #9e9aa7;
@@ -160,43 +155,62 @@ html {
         white-space: nowrap;
         font-size: 16px;
         color: white;
-        background-color: #004a55; /*button color*/
+        background-color: #bcc1a4;
         cursor: pointer;
+        border: double;
+        border-color: #758d38;
     }
+
+        .url-shorten-form .btn:hover {
+            background-color: #758d38;
+            border: double;
+            border-color: black;
+        }
 
 .input-row {
     display: flex;
-    gap: 20px; /* space between input and button */
+    gap: 20px;
     margin-bottom: 5px;
 }
+
     .input-row .btn {
         width: 200px;
         text-align: center;
         border-radius: 6px;
     }
 
+/* Table styles */
 .table-header {
+    font-size: 18px;
+    color: #758d38;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.delete_btn {
-    background-color: #ff9a94;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
+.table-container {
+    max-height: 75vh;
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 1rem;
 }
-    .delete_btn:hover {
-        color: white;
-        background-color: #c95e57 !important;
-        cursor: pointer;
+
+    .table-container::-webkit-scrollbar {
+        width: 18px;
     }
 
-.table td:nth-child(4), /* Click Count column */
+    .table-container::-webkit-scrollbar-track {
+        background: #bcc1a4;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+        background-color: #758d38;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+.table td:nth-child(4),
 .table th:nth-child(4) {
     text-align: center;
 }
@@ -206,19 +220,41 @@ html {
     vertical-align: middle;
 }
 
-header > nav {
-    background-color: #c6dbe5 !important;
-}
 
-.border-bottom {
-    border-bottom: 1px solid #c6dbe5 !important;
-}
-
-.nav-item:hover {
+.delete_btn {
+    background-color: #bcc1a4;
     color: white;
-    background-color: #c95e57 !important;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: double;
+    border-color: #184a25;
     cursor: pointer;
 }
+
+    .delete_btn:hover {
+        color: white;
+        background-color: #c95e57 !important;
+        border-color: #521f17;
+        cursor: pointer;
+    }
+
+.border-bottom {
+    border-bottom: 1px solid #c6dbe5 
+}
+
+.nav-item {
+    font-size: 18px;
+    border: double transparent; 
+    border-radius: 6px;
+    box-sizing: border-box; 
+}
+
+    .nav-item:hover {
+        border-color: #184a25;
+        background-color: #bcc1a4;
+        cursor: pointer;
+    }
 
 div.form-group > label {
     font-size: 14px;
@@ -233,5 +269,12 @@ hr {
     border-top: 1px solid #c6dbe5;
 }
 
+.LinkDisplay {
+    color: #3f9936;
+    transition: color 0.3s ease;
+    font-size: 15px;
+}
 
-
+    .LinkDisplay:hover {
+        color: #296923;
+    }

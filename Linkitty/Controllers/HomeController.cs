@@ -1,6 +1,9 @@
 using Linkitty.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Net;
 
 
 namespace Linkitty.Controllers
@@ -31,9 +34,9 @@ namespace Linkitty.Controllers
         public IActionResult ShortenUrl(string url) 
         {
             /*CHECK IF LINK IS A REAL LINK*/
-            if (!IsValidUrl(url))
+            if (!UrlMapping.IsValidUrl(url))
             {
-                TempData["Error"] = "Invalid URL. Please enter a valid link (e.g., https://example.com).";
+                TempData["Error"] = $"Invalid URL: {url}. Please enter a valid link (e.g., https://example.com).";
                 return RedirectToAction("Index");
             }
 
@@ -62,10 +65,9 @@ namespace Linkitty.Controllers
         [HttpPost]
         public IActionResult FollowLink(string url)
         {
-            
             string shortcode;
 
-            if (IsValidUrl(url))
+            if (UrlMapping.IsShortenedUrl(url))
                 shortcode = url.Substring(url.LastIndexOf('/') + 1);
             else
                 shortcode = url;
@@ -85,9 +87,12 @@ namespace Linkitty.Controllers
         {
             var mapping = _context.UrlMappings
                 .FirstOrDefault(m => m.ShortUrl == shortCode);
-            
-            if (mapping == null)
-                return NotFound();
+
+            if (mapping == null) 
+            {
+                TempData["Error"] = $"{shortCode} was not found in our database";
+                return RedirectToAction("Index");
+            }
 
             mapping.ClickCount++;
             _context.SaveChanges();
@@ -95,19 +100,47 @@ namespace Linkitty.Controllers
             return Redirect(mapping.OriginalUrl);
         }
 
-        private bool IsValidUrl(string url)
+        public IActionResult CustomLink()
         {
-            // If no scheme, prepend "http://"
-            if (!url.StartsWith("http://") && !url.StartsWith("https://"))
-                url = "http://" + url;
-            
-            return Uri.TryCreate(url, UriKind.Absolute, out var validatedUri)
-                && (validatedUri.Scheme == Uri.UriSchemeHttp || validatedUri.Scheme == Uri.UriSchemeHttps)
-                && !string.IsNullOrEmpty(validatedUri.Host); // Ensures there's a valid domain
+            return View("CustomLink");
         }
 
+        [HttpPost("CustomLink")]
+        public IActionResult ShortenCustomLink(string url, string shortCode)
+        {
+            Console.WriteLine("ShortenCustomLink ACTION: " + url + " " + shortCode);
 
-        /*TODO: these 2 should be moved to their own controller, one named AllLinksController*/
+            /* check url validity */
+            if (!UrlMapping.IsValidUrl(url))
+            {
+                TempData["Error"] = $"Invalid URL: {url}. Please enter a valid link (e.g., https://example.com).";
+                return RedirectToAction("CustomLink");
+            }
+
+            /*check if short code already exists*/
+            if (_context.UrlMappings.Any(u => u.ShortUrl == shortCode))
+            {
+                Console.WriteLine($"{shortCode} already exists");
+                TempData["Error"] = $"This code: {shortCode} already exists in our database, please select another";
+                return RedirectToAction("CustomLink");
+
+            }
+
+            var mapping = new UrlMapping
+            {
+                OriginalUrl = url,
+                ShortUrl = shortCode,
+                ClickCount = 0
+            };
+
+            _context.UrlMappings.Add(mapping);
+            _context.SaveChanges();
+
+            TempData["ShortUrl"] = $"{Request.Scheme}://{Request.Host}/{shortCode}";
+            return RedirectToAction("CustomLink");
+
+        }
+
         public IActionResult DeleteAll()
         {
             _context.Database.ExecuteSqlRaw("TRUNCATE TABLE UrlMappings");
@@ -128,6 +161,9 @@ namespace Linkitty.Controllers
             var allLinks = _context.UrlMappings.ToList();
             return View("AllLinks", allLinks);
         }
+
+
+
 
     }
 }
